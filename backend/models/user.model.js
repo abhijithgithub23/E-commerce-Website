@@ -13,6 +13,11 @@ const userSchema= new mongoose.Schema({
         lowercase: true,
         trim: true
     },
+    // contact: {
+    //     type: String,
+    //     default: "9999999999", // Default value to prevent crashes for old users
+    //     trim: true
+    // },
     password:{
         type: String,
         minlength: [8, "Password must be at least 8 characters long!"],

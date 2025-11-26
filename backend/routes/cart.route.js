@@ -11,7 +11,7 @@ const router=express.Router();
 router.get("/", protectRoute, getCartProducts); //View cart items
 router.post("/", protectRoute, addToCart);   // Add items to cart
 router.delete("/", protectRoute, removeAllFromCart);  //Delete items from cart
-router.post("/:id", protectRoute, updateQuantity);  //Update quantity of a specific cart item
+router.put("/:id", protectRoute, updateQuantity);  //Update quantity of a specific cart item
 
 
 export default router;  
