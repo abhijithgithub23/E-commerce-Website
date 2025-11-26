@@ -1,55 +1,54 @@
-import dotenv from "dotenv"; //dotenv
+// Load environment variables
+import dotenv from "dotenv";
 dotenv.config();
 
-import express from "express"; //express
-const app=express();
-
-import cookieParser from "cookie-parser"; //cookie-parser
-
+// Core modules
+import express from "express";
 import path from "path";
+import cookieParser from "cookie-parser";
+import { fileURLToPath } from "url";
 
-import {connectDB} from "./lib/db.js";
+// Import your modules
+import { connectDB } from "./lib/db.js";
+import authRoutes from "./routes/auth.route.js";
+import productRoutes from "./routes/product.route.js";
+import cartRoutes from "./routes/cart.route.js";
+import couponRoutes from "./routes/coupon.route.js";
+import paymentRoutes from "./routes/payment.route.js";
+import analyticsRoutes from "./routes/analytics.route.js";
 
-import authRoutes from "./routes/auth.route.js"; //autherisation route
-import productRoutes from "./routes/product.route.js"; //product route
-import cartRoutes from "./routes/cart.route.js"; //product route
-import couponRoutes from "./routes/coupon.route.js"; //coupon route
-import paymentRoutes from "./routes/payment.route.js"; //payment route
-import analyticsRoutes from "./routes/analytics.route.js"; //analytics route
+// Fix __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const __dirname = path.resolve();
+const app = express();
 
-app.use(express.json({limit:"10mb"})); //allows to parse req body
+// Middleware
+app.use(express.json({ limit: "10mb" }));
+app.use(cookieParser());
 
-app.use(cookieParser()); //allows to parse cookie 
+// API routes
+app.use("/api/auth", authRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/cart", cartRoutes);
+app.use("/api/coupons", couponRoutes);
+app.use("/api/payments", paymentRoutes);
+app.use("/api/analytics", analyticsRoutes);
 
-
-app.use("/api/auth", authRoutes); //Authorisation routes
-
-app.use("/api/products", productRoutes); //Product routes
-
-app.use("/api/cart", cartRoutes);  // Cart routes 
-
-app.use("/api/coupons", couponRoutes);  // Coupons routes 
-
-app.use("/api/payments", paymentRoutes);  // Payment routes 
-
-app.use("/api/analytics", analyticsRoutes);  // Analytics routes 
-
+// Serve React frontend in production
 if (process.env.NODE_ENV === "production") {
-	app.use(express.static(path.join(__dirname, "/frontend/dist")));
+  const frontendPath = path.join(__dirname, "frontend", "dist");
+  app.use(express.static(frontendPath));
 
-	app.get("/*", (req, res) => {
-		res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
-	});
+  // Catch-all route for React
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(frontendPath, "index.html"));
+  });
 }
 
-
-const PORT=process.env.PORT || 8000 ;
-app.listen(PORT, ()=>{
-    console.log("Server Listening on port "+PORT);
-    connectDB();
+// Connect to DB and start server
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
+  connectDB();
 });
-
-
-  
