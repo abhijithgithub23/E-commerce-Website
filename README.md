@@ -104,7 +104,7 @@ A full-stack e-commerce application built using the **MERN** stack, featuring se
     ```
 3.  Start the server:
     ```bash
-    npm start
+    npm run dev
     ```
     *Note: Ensure you have set up your `.env` file with `MONGO_URI`, `JWT_ACCESS_SECRET`, etc.*
 
