@@ -50,14 +50,6 @@ A full-stack e-commerce application built using the **MERN** stack, featuring se
 
 ---
 
-## 📂 Project Structure
-
-A clean separation between client (frontend) and server (backend) code.
-
-root ├── client/ # Frontend (React) │ └── src │ ├── components/ # Reusable UI components │ ├── pages/ # Route-level components │ ├── context/ # Global state management │ ├── utils/ # Helper functions │ └── App.jsx # Main application component └── server/ # Backend (Node/Express) ├── controllers/ # Business logic ├── models/ # MongoDB Schemas (Mongoose) ├── routes/ # API endpoints ├── middleware/ # Authentication, error handling ├── utils/ # Utility functions └── server.js # Application entry point
-
----
-
 ## ⚙️ API Endpoints (RESTful)
 
 ### Authentication
@@ -102,9 +94,9 @@ root ├── client/ # Frontend (React) │ └── src │ ├── compon
 * MongoDB instance (local or Atlas)
 
 ### 2. Backend Setup
-1.  Navigate to the server directory:
+1.  Navigate to the backend directory:
     ```bash
-    cd server
+    cd backend
     ```
 2.  Install dependencies:
     ```bash
@@ -117,9 +109,9 @@ root ├── client/ # Frontend (React) │ └── src │ ├── compon
     *Note: Ensure you have set up your `.env` file with `MONGO_URI`, `JWT_ACCESS_SECRET`, etc.*
 
 ### 3. Frontend Setup
-1.  Navigate to the client directory (in a new terminal window):
+1.  Navigate to the frontend directory (in a new terminal window):
     ```bash
-    cd client
+    cd frontend
     ```
 2.  Install dependencies:
     ```bash
